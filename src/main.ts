@@ -85,7 +85,7 @@ function createPrompt(file: File, chunk: Chunk, prDetails: PRDetails): string {
 - Write the comment in GitHub Markdown format.
 - Use the given description only for the overall context and only comment the code.
 - VERY IMPORTANT RULES: 
-  1. NEVER suggest adding comments to the code
+  1. NEVER comment on issues the compiler could detect, such as types of objects or method parameters, even if you think they are invalid
   2. NEVER comment on readability, such as hard-coded constants, variable names, or method length
   3. NEVER comment on the return value or signature of methods with @Override
 
