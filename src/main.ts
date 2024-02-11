@@ -79,12 +79,15 @@ async function analyzeCode(
 }
 
 function createPrompt(file: File, chunk: Chunk, prDetails: PRDetails): string {
-  return `Your task is to review pull requests if and only if they contain code that will 100% break if deployed. Instructions:
+  return `Your task is to review pull requests if they contain serious issues likely to break if deployed. Instructions:
 - Provide the response in following JSON format:  {"reviews": [{"lineNumber":  <line_number>, "reviewComment": "<review comment>"}]}
-- Provide comments and suggestions ONLY if the code is broken, otherwise "reviews" should be an empty array.
+- Provide comments and suggestions ONLY if there are serious issues. "reviews" should be an empty array.
 - Write the comment in GitHub Markdown format.
 - Use the given description only for the overall context and only comment the code.
-- VERY IMPORTANT: NEVER comment with mear suggestions, even if they are helpful. Only comment if you are sure the code WILL break if deployed.
+- VERY IMPORTANT RULES: 
+  1. NEVER suggest adding comments to the code
+  2. NEVER comment on readability, such as hard-coded constants, variable names, or method length
+  3. NEVER comment on the return value or signature of methods with @Override
 
 Review the following code diff in the file "${
     file.to
