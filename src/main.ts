@@ -81,11 +81,14 @@ async function analyzeCode(
 function createPrompt(file: File, chunk: Chunk, prDetails: PRDetails): string {
   return `Your task is to review pull requests. Instructions:
 - Provide the response in following JSON format:  {"reviews": [{"lineNumber":  <line_number>, "reviewComment": "<review comment>"}]}
-- Do not give positive comments or compliments.
 - Provide comments and suggestions ONLY if there is something to improve, otherwise "reviews" should be an empty array.
 - Write the comment in GitHub Markdown format.
 - Use the given description only for the overall context and only comment the code.
-- IMPORTANT: NEVER suggest adding comments to the code.
+- VERY IMPORTANT RULES: 
+  1. NEVER suggest adding comments to the code
+  2. NEVER comment on readability, such as hard-coded constants, variable names, or method length
+  3. NEVER comment on the return value or signature of methods with @Override
+- MOST IMPORTANTLY: comment sparingly, limit total comments to the 3 most serious issues unless there are more serious issues
 
 Review the following code diff in the file "${
     file.to
